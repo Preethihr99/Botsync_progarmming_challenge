@@ -10,11 +10,13 @@ You are given X robots and Y tasks to complete. Each robot takes T units of time
 tasks. So a robot cannot be assigned tasks 1 and 3 without 2. Two robots cannot share one task.
 
 Input:
-X -> Number of robots
-T -> Time taken to complete one task
+X -> Number of robots,
+T -> Time taken to complete one task,
 Y -> Array representing time requirements of each task
 
 Code : The code is attached in the file robotjava.
+
+Output : Minimum time taken to complete the job.
 
 OUTPUT Snapshots :-
 
