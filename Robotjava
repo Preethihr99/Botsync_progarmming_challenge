@@ -1,0 +1,88 @@
+// To find the minimum time taken for a fleet robots to complete a list of tasks.
+// X -> Number of Robots
+// T -> Time taken to complete one task
+// Y -> Array representing  time requirements of each task
+
+package Bsec;
+import java.util.Scanner;
+public class Robot 
+{ 
+  // maximum element in Y[0..n-1]
+  static int getMaxJob(int arr[], int n) 
+ { 
+ int result = arr[0]; 
+ for (int i=1; i<n; i++) 
+     if (arr[i] > result) 
+         result = arr[i]; 
+     return result; 
+ }  
+ 
+ // Returns true if it is possible to finish Y[] within given time 'time'
+ static boolean isPossible(int time, int X,  
+                                 int Y[], int n) 
+ { 
+     // count is to number of current robots required for jobs 
+     int count = 1; 
+     // time assigned to current robot
+     int current_time = 0;  
+   
+     for (int i = 0; i < n;) 
+     { 
+     // If time assigned to current robot exceeds max, increment count of robots.
+         if (current_time + Y[i] > time) { 
+             current_time = 0; 
+             count++; 
+         }
+      // Else add time of Y to current time and move to next task. 
+         else 
+         { 
+             current_time += Y[i]; 
+             i++; 
+         } 
+     } 
+     return (count <= X); 
+ } 
+ 
+ // Returns minimum time required to finish given array of tasks
+ static int findMinimumTime(int X, int T, int Y[], int n) 
+ { 
+ // Set start and end for binary search end provides an upper limit on time 
+     int end = 0, start = 0; 
+     for (int i = 0; i < n; ++i) 
+         end += Y[i]; 
+     int ans = end;  
+     // Find the task that takes maximum time 
+     int Y_max = getMaxJob(Y, n); 
+     // Do binary search for minimum feasible time 
+     while (start <= end) 
+     { 
+         int mid = (start + end) / 2;  
+         if (mid >= Y_max && isPossible(mid, X, Y, n)) 
+         { 
+             ans = Math.min(ans, mid);  
+             end = mid - 1; 
+         } 
+         else
+             start = mid + 1; 
+     } 
+     return (ans * T); 
+ } 
+ public static void main(String arg[]) 
+ { 
+	 Scanner sc=new Scanner(System.in);
+	 
+	 System.out.println("Enter the number of robots");
+	 int X = sc.nextInt();
+	 System.out.println("Enter the time assigned to finish a unit of tasX");
+	 int T = sc.nextInt();
+	 System.out.println("Enter the length of job array");
+	 int n=sc.nextInt();
+	 int Y[]=new int[n];
+	 System.out.println("Enter the time requirements of each tasX"); 
+      for(int i=0;i<n;i++)
+    	  Y[i]=sc.nextInt();
+      System.out.println("\nThe minimum time taXen for robots to complete the given list of tasXs is : ");
+     System.out.println(findMinimumTime(X, T, Y, n)); 
+     sc.close();
+ } 
+} 
