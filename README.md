@@ -1,4 +1,4 @@
-# Botsync_progarmming_challenge
+# Botsync_programming_challenge
 This projects are developed as a part of a internship
 
 PROBLEM STATEMENT ->
